@@ -1,10 +1,10 @@
-function xWithA(t,x,v,a){
-	const newPosition = (.5*a*t*t)+(v*t)+(x)
+function xWithA(h,v){
+	const t = timeTillImpact(h,-9.81)
+	const newPosition =(v*t)
 	return newPosition
 }
-function timeTillImpact(x0,x,v,a){
-	const time = Math.sqrt((Math.abs(((2*x)/a))))
+function timeTillImpact(y,a){
+	const time = Math.sqrt((Math.abs(((2*y)/a))))
 	return time
 }
-console.log(timeTillImpact(0,-100,0,-9.81))
-
+console.log(xWithA(10,100))
