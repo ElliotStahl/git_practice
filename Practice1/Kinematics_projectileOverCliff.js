@@ -1,45 +1,43 @@
-function xWithA(h,v0,degree){
-	const vx = v0*Math.cos(degree);
-	const vy = v0*Math.sin(degree);
-	const tApex = apexTime(vy);
-	const yMax = (tApex,vy)+h;
-	const tFall = timeTillImpact(yMax,-9.81);
-	const tTotal = tApex+tFall;
-	const distance = vx*tTotal
+function distance(y,v0,degree){
+	const distance = totalTime(y,v0,degree)*xVelocity(v0,degree)
 	return distance
 }
 
-function timeTillImpact(y,a){
-	const time = Math.sqrt((Math.abs(((2*y)/a))))
+function timeTillImpact(y,v0,degree){
+	const yTotal = apexHeight(v0,degree)+y
+	const time = Math.sqrt((Math.abs(((2*yTotal)/9.81))))
 	return time
 }
 
 
-function xVelocity(v,degree){
+function xVelocity(v,degree){//WORKS
 	let radians = degree*Math.PI/180
-	const velocity = v*Math.cos(45*Math.PI/180)
+	const velocity = v*Math.cos(degree*Math.PI/180)
 	return velocity
 }
 
-function yVelocity(v,degree){
+function yVelocity(v,degree){//WORKS
 	let radians = degree*Math.PI/180
-	const velocity = v*Math.sin(45*Math.PI/180)
+	const velocity = v*Math.sin(degree*Math.PI/180)
 	return velocity
 }
 
-function apexTime(v0){
-	const apexTime = v0/9.81
+function apexTime(v0,degree){//WORKS
+	const vy = yVelocity(v0,degree)
+	const apexTime = vy/9.81
 	return apexTime
 }
-function apexHeight(t,v0){
-	const t = apexTime(v0)
-	const apexHeight = (.5*(-9.81)*t*t)+(v0*t)
+function apexHeight(v0,degree){
+	const vy = yVelocity(v0,degree)
+	const t = apexTime(v0,degree)
+	const apexHeight = (.5*(-9.81)*t*t)+(vy*t)
 	return apexHeight
 }
 
-function totalTime(){
-	const totalTime = apexTiem
+function totalTime(y,v0,degree){
+	const totalTime = apexTime(v0,degree)+timeTillImpact(y,v0,degree)
+	return totalTime
 }
 
-
+console.log(distance(100,10,30))
 
